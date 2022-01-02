@@ -24,5 +24,25 @@ namespace BookSystem.Pages.Bookshelf
         {
             Books = await Context.Book.ToListAsync();
         }
+
+        /// <summary>
+        /// Button "Delete"的事件
+        /// 因為是Button，必定會是OnPost起手
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            var bookInDb = await Context.Book.FindAsync(id);
+            if(bookInDb == null)
+            {
+                return NotFound();
+            }
+
+            Context.Remove(bookInDb);
+            await Context.SaveChangesAsync();
+
+            return RedirectToPage("Index");
+        }
     }
 }
