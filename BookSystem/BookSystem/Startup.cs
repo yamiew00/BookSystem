@@ -23,7 +23,9 @@ namespace BookSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            //新增razor的Runtime Compilation，使檔案編輯後可以在不重啟專案前提下看到改動結果
+            services.AddRazorPages()
+                    .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
