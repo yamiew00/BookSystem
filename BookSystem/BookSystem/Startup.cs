@@ -1,6 +1,8 @@
+using BookSystem.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +25,9 @@ namespace BookSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //
+            services.AddDbContext<BookSystemDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             //新增razor的Runtime Compilation，使檔案編輯後可以在不重啟專案前提下看到改動結果
             services.AddRazorPages()
                     .AddRazorRuntimeCompilation();
